@@ -17,11 +17,11 @@ This backend system collects, processes, and stores data from various IoT device
 
 1. Clone the repository
 ```
-git clone https://github.com/your-repo/backend-health-monitoring.git
+git clone https://github.com/Gamingstein/Vitallink-Backend.git
 ```
 2. Navigate to the project directory
 ```
-cd backend-health-monitoring
+cd Vitallink-Backend
 ```
 3. Install dependencies
 ```
@@ -31,17 +31,6 @@ npm install
 ```
 npm start
 ```
-
-## API Endpoints
-
-- `/api/patients`: Get all patient data
-- `/api/patients/:id`: Get specific patient data
-- `/api/devices`: Get all IoT device data
-- `/api/devices/:id`: Get specific IoT device data
-
-## Contributing
-
-Please read `CONTRIBUTING.md` for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## License
 
