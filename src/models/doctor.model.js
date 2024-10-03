@@ -6,6 +6,11 @@ const doctorSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "User",
     },
+    gender: {
+      type: String,
+      enum: ["female", "male"],
+      required: true,
+    },
     specification: {
       type: String,
       required: true,

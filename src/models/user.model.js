@@ -23,7 +23,6 @@ const userSchema = new Schema(
       type: String,
       required: true,
       trim: true,
-      index: true,
     },
     password: {
       type: String,
@@ -33,6 +32,10 @@ const userSchema = new Schema(
       type: Boolean,
       required: true,
       default: false,
+    },
+    avatar: {
+      type: String, // cloudinary url
+      required: true,
     },
     refreshToken: {
       type: String,

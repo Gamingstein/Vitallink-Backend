@@ -6,7 +6,6 @@ const patientSchema = new Schema(
       type: String,
       required: true,
       trim: true,
-      index: true,
     },
     aadhaar: {
       type: Number,
@@ -16,10 +15,14 @@ const patientSchema = new Schema(
     gender: {
       type: String,
       required: true,
-      trim: true,
+      enum: ["female", "male"],
     },
     age: {
       type: Number,
+      required: true,
+    },
+    admitted: {
+      type: Boolean,
       required: true,
     },
     sensor_id: {
