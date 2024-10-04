@@ -6,23 +6,22 @@ import {
   addDoctor,
   removeDoctor,
   addSensor,
-  // removeSensor,
   assignDoctor,
   dismissDoctor,
+  getRegDoctors,
+  getAdmittedPatients,
 } from "../controllers/hospital.controller.js";
 
 const router = Router();
 
-//tested
-router.route("/add-patient").post(verifyJWT, addPatient);
-router.route("/remove-patient").delete(verifyJWT, removePatient);
-router.route("/add-doctor").post(verifyJWT, addDoctor);
+router.route("/add-patient").post(verifyJWT, addPatient); //tested
+router.route("/remove-patient").delete(verifyJWT, removePatient); //tested
+router.route("/add-doctor").post(verifyJWT, addDoctor); //tested
 router.route("/remove-doctor").delete(verifyJWT, removeDoctor);
-router.route("/add-sensor").post(verifyJWT, addSensor);
-
-// router.route("/remove-sensor").delete(verifyJWT, removeSensor);
-//
-router.route("/assign-doctor").post(verifyJWT, assignDoctor);
+router.route("/add-sensor").post(verifyJWT, addSensor); //tested
+router.route("/assign-doctor").post(verifyJWT, assignDoctor); //tested
 router.route("/dismiss-doctor").delete(verifyJWT, dismissDoctor);
+router.route("/get-reg-doctors").get(verifyJWT, getRegDoctors);
+router.route("/get-admitted-patients").get(verifyJWT, getAdmittedPatients);
 
 export default router;

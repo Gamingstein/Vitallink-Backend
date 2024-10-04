@@ -29,11 +29,25 @@ const generateAccessAndRefreshTokens = async (userId) => {
 };
 
 const registerUser = asyncHandler(async (req, res) => {
-  const { fullName, email, username, password, isAdmin, specification } =
-    req.body;
+  const {
+    fullName,
+    email,
+    username,
+    password,
+    isAdmin,
+    specification,
+    gender,
+  } = req.body;
 
   if (
     [fullName, email, username, password].some((field) => field?.trim() === "")
+  ) {
+    throw new ApiError(400, "All fields are required");
+  }
+
+  if (
+    !isAdmin &&
+    [specification, gender].some((field) => field?.trim() === "")
   ) {
     throw new ApiError(400, "All fields are required");
   }
@@ -51,7 +65,8 @@ const registerUser = asyncHandler(async (req, res) => {
     throw new ApiError(400, "Avatar file is required");
   }
 
-  const avatar = await uploadOnCloudinary(avatarLocalPath);
+  // const avatar = await uploadOnCloudinary(avatarLocalPath);
+  const avatar = { url: `www.kuchbhi.com/${avatarLocalPath}` };
   if (!avatar) {
     throw new ApiError(400, "Avatar file is required");
   }
@@ -77,6 +92,7 @@ const registerUser = asyncHandler(async (req, res) => {
     await Doctor.create({
       user: createdUser._id,
       specification,
+      gender,
     });
   }
 

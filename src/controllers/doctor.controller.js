@@ -5,17 +5,12 @@ import { ApiError, ApiResponse, asyncHandler } from "../utils/index.js";
 const addPatient = asyncHandler(async (req, res) => {
   const { patient_id } = req.body;
 
-  const doctor = await Doctor.findOne({ _id: req.user._id });
+  const doctor = await Doctor.findOne({ user: req.user._id });
   if (!doctor) {
     throw new ApiError(404, "Doctor not found");
   }
 
-  const patient = await Patient.findOne({ _id: patient_id });
-  if (!patient) {
-    throw new ApiError(404, "Patient not found");
-  }
-
-  if (doctor.patients.includes(patient._id)) {
+  if (doctor.patients.includes(patient_id)) {
     throw new ApiError(409, "Patient already exists");
   }
 
@@ -30,14 +25,9 @@ const addPatient = asyncHandler(async (req, res) => {
 const removePatient = asyncHandler(async (req, res) => {
   const { patient_id } = req.body;
 
-  const doctor = await Doctor.findOne({ _id: req.user._id });
+  const doctor = await Doctor.findOne({ user: req.user._id });
   if (!doctor) {
     throw new ApiError(404, "Doctor not found");
-  }
-
-  const patient = await Patient.findOne({ _id: patient_id });
-  if (!patient) {
-    throw new ApiError(404, "Patient not found");
   }
 
   doctor.patients.pull(patient_id);
@@ -46,14 +36,13 @@ const removePatient = asyncHandler(async (req, res) => {
   return res.status(200).json(new ApiResponse(200, doctor, "Patient removed"));
 });
 
-// TODO: Implement getPatientsList
 const getPatientsList = asyncHandler(async (req, res) => {
-  const doctor = await Doctor.findOne({ _id: req.user._id }).populate(
+  const doctor = await Doctor.findOne({ user: req.user._id }).populate(
     "patients",
   );
 
   const filteredPatients = doctor.patients.filter((patient) =>
-    patient.doctors.includes(req.user._id),
+    patient.doctors.includes(doctor._id),
   );
 
   doctor.patients = filteredPatients.map((patient) => patient._id);
