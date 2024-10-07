@@ -14,7 +14,14 @@ import { verifyJWT, upload } from "../middlewares/index.js";
 const router = Router();
 
 router.route("/test").get((req, res) => {
-  return res.status(200).json({ hello: "world", data: req.body });
+  return res
+    .status(200)
+    .json({
+      status: 200,
+      message: "Success",
+      data: req.body,
+      timestamp: new Date(),
+    });
 });
 
 router.route("/register").post(
