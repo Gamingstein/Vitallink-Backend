@@ -161,6 +161,7 @@ const addSensor = asyncHandler(async (req, res) => {
 
   const sensor = await Sensor.create({
     hospital_id: hospital._id,
+    sensorID: "12:23:34:45:56:67",
   });
 
   hospital.sensors.push(sensor._id);

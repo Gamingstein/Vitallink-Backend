@@ -86,6 +86,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
   if (createdUser.isAdmin) {
     await Hospital.create({
+      fullName,
       user: createdUser._id,
     });
   } else {
@@ -93,6 +94,7 @@ const registerUser = asyncHandler(async (req, res) => {
       user: createdUser._id,
       specification,
       gender,
+      fullName,
     });
   }
 

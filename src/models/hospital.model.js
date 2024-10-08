@@ -6,6 +6,11 @@ const hospitalSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "User",
     },
+    fullName: {
+      type: String,
+      required: true,
+      trim: true,
+    },
     doctors: [
       {
         type: Schema.Types.ObjectId,

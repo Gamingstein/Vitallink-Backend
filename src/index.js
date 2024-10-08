@@ -14,8 +14,3 @@ connectDB()
   .catch((err) => {
     console.log("MongoDB Connection Failed!!", err);
   });
-
-// import dotenv from "dotenv";
-// dotenv.config(
-//   path: "./.env",
-// });
