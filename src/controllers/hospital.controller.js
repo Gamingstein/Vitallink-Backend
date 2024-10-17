@@ -276,6 +276,16 @@ const getRegDoctors = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, doctors, "Registered doctors fetched"));
 });
 
+const getAllDoctors = asyncHandler(async (req, res) => {
+  const doctors = await Doctor.find().populate("user");
+  if (!doctors) {
+    throw new ApiError(404, "No doctors found");
+  }
+  return res
+    .status(200)
+    .json(new ApiResponse(200, doctors, "All doctors fetched"));
+});
+
 export {
   addPatient,
   removePatient,
@@ -286,4 +296,5 @@ export {
   dismissDoctor,
   getRegDoctors,
   getAdmittedPatients,
+  getAllDoctors,
 };

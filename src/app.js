@@ -1,8 +1,12 @@
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import { connectGraphQL } from "./graphql/index.js";
+import { expressMiddleware } from "@apollo/server/express4";
 
 const app = express();
+const graphqlServer = connectGraphQL();
+await graphqlServer.start();
 
 app.use(
   cors({
@@ -15,6 +19,9 @@ app.use(express.json({ limit: "16kb" }));
 app.use(express.urlencoded({ extended: true, limit: "16kb" }));
 app.use(express.static("public"));
 app.use(cookieParser());
+
+//GraphQL
+app.use("/graphql", expressMiddleware(graphqlServer));
 
 //routes import
 import userRouter from "./routes/user.routes.js";
