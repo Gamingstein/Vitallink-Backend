@@ -86,7 +86,6 @@ const registerUser = asyncHandler(async (req, res) => {
 
   if (createdUser.isAdmin) {
     await Hospital.create({
-      fullName,
       user: createdUser._id,
     });
   } else {
@@ -94,7 +93,6 @@ const registerUser = asyncHandler(async (req, res) => {
       user: createdUser._id,
       specification,
       gender,
-      fullName,
     });
   }
 
@@ -235,9 +233,21 @@ const changeCurrentPassword = asyncHandler(async (req, res) => {
 });
 
 const getCurrentUser = asyncHandler(async (req, res) => {
+  if (req.user.isAdmin) {
+    const hospital = await Hospital.findOne({ user: req.user._id }).populate(
+      "user patients doctors sensors",
+    );
+    return res
+      .status(200)
+      .json(new ApiResponse(200, hospital, "User fetched successfully"));
+  }
+
+  const doctor = await Doctor.findOne({ user: req.user._id }).populate(
+    "user patients hospitals",
+  );
   return res
     .status(200)
-    .json(new ApiResponse(200, req.user, "User fetched successfully"));
+    .json(new ApiResponse(200, doctor, "User fetched successfully"));
 });
 
 const updateAccountDetails = asyncHandler(async (req, res) => {

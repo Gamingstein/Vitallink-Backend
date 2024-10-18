@@ -6,11 +6,6 @@ const doctorSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "User",
     },
-    fullName: {
-      type: String,
-      required: true,
-      trim: true,
-    },
     gender: {
       type: String,
       enum: ["female", "male", "other"],
@@ -28,7 +23,7 @@ const doctorSchema = new Schema(
       },
       { default: [] },
     ],
-    hospital: [
+    hospitals: [
       {
         type: Schema.Types.ObjectId,
         ref: "Hospital",
